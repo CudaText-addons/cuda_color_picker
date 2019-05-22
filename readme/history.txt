@@ -1,6 +1,10 @@
 
+2019.05.22
++ refactored
++ after color inserted, caret moves righter
+
 2018.01.09
 + added readme
 
 2015.10
-init
+initial version
