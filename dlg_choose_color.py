@@ -69,7 +69,6 @@ class DialogChooseColor:
         dlg_proc(h, DLG_PROP_SET, prop={'cap':'Recent colors',
           'w':CHOOSE_FORM_W,
           'h':CHOOSE_FORM_H,
-          'keypreview': True
           })
 
         n=dlg_proc(h, DLG_CTL_ADD, 'listbox_ex')
@@ -85,7 +84,7 @@ class DialogChooseColor:
 
         n=dlg_proc(h, DLG_CTL_ADD, 'button')
         dlg_proc(h, DLG_CTL_PROP_SET, index=n, prop={'name': 'btn_ok',
-            'cap': 'OK',
+            'cap': '&OK',
             'align': ALIGN_BOTTOM,
             'sp_a': 6,
             'on_change': self.callback_btn_ok,
