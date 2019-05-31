@@ -2,7 +2,7 @@ import os
 from cudatext import *
 import cudax_lib as appx
 
-CHOOSE_FORM_W = 300
+CHOOSE_FORM_W = 200
 CHOOSE_FORM_H = 580
 
 for i in app_proc(PROC_THEME_UI_DATA_GET, ''):

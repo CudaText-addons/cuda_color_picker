@@ -3,7 +3,10 @@ from cudatext import *
 import cudax_lib as appx
 from .dlg_choose_color import DialogChooseColor
 
+fn_config = 'plugins.ini'
+MAX_COLORS = 30
 CHARS = string.ascii_letters + string.digits + '#'
+
 
 def get_word_info():
 
@@ -21,6 +24,25 @@ def get_word_info():
 
 
 class Command:
+    items = []
+    
+    def load_history(self):
+        
+        s = ini_read(fn_config, 'color_picker', 'recents', '')
+        self.items = s.split(',')[:MAX_COLORS]
+        self.items = [i for i in self.items if '#' in i]
+        
+    def save_history(self):
+        
+        ini_write(fn_config, 'color_picker', 'recents', ','.join(self.items))
+        
+    def add_history(self, item):
+        
+        if item in self.items:
+            self.items.remove(item)
+        self.items.insert(0, item)
+        self.save_history()
+
 
     def run(self):
 
@@ -33,24 +55,32 @@ class Command:
                 val = 0
 
         val = dlg_color(val)
-        if val is None: return
-        val = appx.int_to_html_color(val)
+        if not val: return
 
-        ed.set_caret(x0, y0)
-        ed.delete(x0, y0, x0+nlen, y0)
+        val = appx.int_to_html_color(val)
         self.insert(val)
+        
 
     def insert(self, val):
-        
-        x0, y0, x1, y1 = ed.get_carets()[0]
+
+        x0, y0, nlen, text = get_word_info()
+        if nlen:
+            ed.set_caret(x0, y0)
+            ed.delete(x0, y0, x0+nlen, y0)
+                
         ed.insert(x0, y0, val)
         ed.set_caret(x0+len(val), y0)
+
+        self.load_history()
+        self.add_history(val)
+
         msg_status('Inserted color: '+val)
+        
 
     def recent_colors(self):
 
+        self.load_history()
         dlg = DialogChooseColor()
-        items = ['#00ff00', '#ffff00', '#00f']
-        res = dlg.choose_color(items)
+        res = dlg.choose_color(self.items)
         if res:
             self.insert(res)
