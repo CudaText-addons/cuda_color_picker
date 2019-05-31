@@ -25,20 +25,20 @@ def get_word_info():
 
 class Command:
     items = []
-    
+
     def load_history(self):
-        
+
         s = ini_read(fn_config, 'color_picker', 'recents', '')
         self.items = s.split(',')
         self.items = [i for i in self.items if '#' in i]
-        
+
     def save_history(self):
-        
+
         s = ','.join(self.items[:MAX_COLORS])
         ini_write(fn_config, 'color_picker', 'recents', s)
-        
+
     def add_history(self, item):
-        
+
         if item in self.items:
             self.items.remove(item)
         self.items.insert(0, item)
@@ -60,7 +60,7 @@ class Command:
 
         val = appx.int_to_html_color(val)
         self.insert(val)
-        
+
 
     def insert(self, val):
 
@@ -68,7 +68,7 @@ class Command:
         if nlen:
             ed.set_caret(x0, y0)
             ed.delete(x0, y0, x0+nlen, y0)
-                
+
         ed.insert(x0, y0, val)
         ed.set_caret(x0+len(val), y0)
 
@@ -76,7 +76,7 @@ class Command:
         self.add_history(val)
 
         msg_status('Inserted color: '+val)
-        
+
 
     def recent_colors(self):
 

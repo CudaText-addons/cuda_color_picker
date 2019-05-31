@@ -15,7 +15,7 @@ class DialogChooseColor:
         self.h_dlg = self.init_dlg()
         listbox_proc(self.h_list, LISTBOX_SET_ITEM_H, index=self.icon_h+2)
         self.items = []
-        
+
         for i in app_proc(PROC_THEME_UI_DATA_GET, ''):
             key = i['name']
             if key=='ListBg':
@@ -26,7 +26,7 @@ class DialogChooseColor:
                 self.THEME_FONT = i['color']
             elif key=='ListSelFont':
                 self.THEME_FONT_SEL = i['color']
-        
+
 
     def callback_keydown(self, id_dlg, id_ctl, data='', info=''):
 
@@ -52,7 +52,7 @@ class DialogChooseColor:
         canvas_proc(id_canvas, CANVAS_RECT_FILL, x=rect[0], y=rect[1], x2=rect[2], y2=rect[3])
 
         ncolor = appx.html_color_to_int(item_text)
-        
+
         canvas_proc(id_canvas, CANVAS_SET_BRUSH, color=ncolor, style=BRUSH_SOLID)
         canvas_proc(id_canvas, CANVAS_RECT_FILL, x=rect[0], y=rect[1], x2=rect[0]+self.icon_w, y2=rect[3])
 
