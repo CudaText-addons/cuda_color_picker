@@ -29,12 +29,13 @@ class Command:
     def load_history(self):
         
         s = ini_read(fn_config, 'color_picker', 'recents', '')
-        self.items = s.split(',')[:MAX_COLORS]
+        self.items = s.split(',')
         self.items = [i for i in self.items if '#' in i]
         
     def save_history(self):
         
-        ini_write(fn_config, 'color_picker', 'recents', ','.join(self.items))
+        s = ','.join(self.items[:MAX_COLORS])
+        ini_write(fn_config, 'color_picker', 'recents', s)
         
     def add_history(self, item):
         
