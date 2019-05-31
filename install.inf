@@ -7,5 +7,10 @@ homepage=https://github.com/CudaText-addons/cuda_color_picker
 
 [item1]
 section=commands
-caption=Color Picker
+caption=Color Picker\Choose color...
 method=run
+
+[item2]
+section=commands
+caption=Color Picker\Recent colors...
+method=recent_colors

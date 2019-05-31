@@ -1,6 +1,7 @@
 import string
 from cudatext import *
-from .colorcodes import *
+import cudax_lib as appx
+from .dlg_choose_color import DialogChooseColor
 
 CHARS = string.ascii_letters + string.digits + '#'
 
@@ -20,22 +21,36 @@ def get_word_info():
 
 
 class Command:
-    def run(self):
-        x0, y0, nlen, text = get_word_info()
 
+    def run(self):
+
+        x0, y0, nlen, text = get_word_info()
         val = 0
         if text:
             try:
-                val = HTMLColorToPILColor(text)
+                val = appx.html_color_to_int(text)
             except:
                 val = 0
 
         val = dlg_color(val)
         if val is None: return
-        val = PILColorToHTMLColor(val)
+        val = appx.int_to_html_color(val)
 
+        ed.set_caret(x0, y0)
         ed.delete(x0, y0, x0+nlen, y0)
+        self.insert(val)
+
+    def insert(self, val):
+        
+        x0, y0, x1, y1 = ed.get_carets()[0]
         ed.insert(x0, y0, val)
         ed.set_caret(x0+len(val), y0)
-
         msg_status('Inserted color: '+val)
+
+    def recent_colors(self):
+
+        dlg = DialogChooseColor()
+        items = ['#00ff00', '#ffff00', '#00f']
+        res = dlg.choose_color(items)
+        if res:
+            self.insert(res)
