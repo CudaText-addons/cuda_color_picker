@@ -5,17 +5,6 @@ import cudax_lib as appx
 CHOOSE_FORM_W = 200
 CHOOSE_FORM_H = 580
 
-for i in app_proc(PROC_THEME_UI_DATA_GET, ''):
-    key = i['name']
-    if key=='ListBg':
-        THEME_BG = i['color']
-    elif key=='ListSelBg':
-        THEME_BG_SEL = i['color']
-    elif key=='ListFont':
-        THEME_FONT = i['color']
-    elif key=='ListSelFont':
-        THEME_FONT_SEL = i['color']
-
 
 class DialogChooseColor:
 
@@ -26,6 +15,18 @@ class DialogChooseColor:
         self.h_dlg = self.init_dlg()
         listbox_proc(self.h_list, LISTBOX_SET_ITEM_H, index=self.icon_h+2)
         self.items = []
+        
+        for i in app_proc(PROC_THEME_UI_DATA_GET, ''):
+            key = i['name']
+            if key=='ListBg':
+                self.THEME_BG = i['color']
+            elif key=='ListSelBg':
+                self.THEME_BG_SEL = i['color']
+            elif key=='ListFont':
+                self.THEME_FONT = i['color']
+            elif key=='ListSelFont':
+                self.THEME_FONT_SEL = i['color']
+        
 
     def callback_keydown(self, id_dlg, id_ctl, data='', info=''):
 
@@ -44,8 +45,8 @@ class DialogChooseColor:
         index_sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
         item_text = listbox_proc(self.h_list, LISTBOX_GET_ITEM, index=index)[0]
 
-        back_color = THEME_BG_SEL if index==index_sel else THEME_BG
-        font_color = THEME_FONT_SEL if index==index_sel else THEME_FONT
+        back_color = self.THEME_BG_SEL if index==index_sel else self.THEME_BG
+        font_color = self.THEME_FONT_SEL if index==index_sel else self.THEME_FONT
 
         canvas_proc(id_canvas, CANVAS_SET_BRUSH, color=back_color, style=BRUSH_SOLID)
         canvas_proc(id_canvas, CANVAS_RECT_FILL, x=rect[0], y=rect[1], x2=rect[2], y2=rect[3])
