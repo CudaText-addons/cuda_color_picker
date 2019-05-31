@@ -4,8 +4,17 @@ import cudax_lib as appx
 
 CHOOSE_FORM_W = 300
 CHOOSE_FORM_H = 580
-CHOOSE_COLOR_LIST = 0xFFFFFF
-CHOOSE_COLOR_SEL = 0xE0A0A0
+
+for i in app_proc(PROC_THEME_UI_DATA_GET, ''):
+    key = i['name']
+    if key=='ListBg':
+        THEME_BG = i['color']
+    elif key=='ListSelBg':
+        THEME_BG_SEL = i['color']
+    elif key=='ListFont':
+        THEME_FONT = i['color']
+    elif key=='ListSelFont':
+        THEME_FONT_SEL = i['color']
 
 
 class DialogChooseColor:
@@ -13,7 +22,7 @@ class DialogChooseColor:
     def __init__(self):
 
         self.icon_w = 45
-        self.icon_h = 16
+        self.icon_h = 19
         self.h_dlg = self.init_dlg()
         listbox_proc(self.h_list, LISTBOX_SET_ITEM_H, index=self.icon_h+2)
         self.items = []
@@ -35,10 +44,8 @@ class DialogChooseColor:
         index_sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
         item_text = listbox_proc(self.h_list, LISTBOX_GET_ITEM, index=index)[0]
 
-        if index==index_sel:
-            back_color = CHOOSE_COLOR_SEL
-        else:
-            back_color = CHOOSE_COLOR_LIST
+        back_color = THEME_BG_SEL if index==index_sel else THEME_BG
+        font_color = THEME_FONT_SEL if index==index_sel else THEME_FONT
 
         canvas_proc(id_canvas, CANVAS_SET_BRUSH, color=back_color, style=BRUSH_SOLID)
         canvas_proc(id_canvas, CANVAS_RECT_FILL, x=rect[0], y=rect[1], x2=rect[2], y2=rect[3])
@@ -49,6 +56,7 @@ class DialogChooseColor:
         canvas_proc(id_canvas, CANVAS_RECT_FILL, x=rect[0], y=rect[1], x2=rect[0]+self.icon_w, y2=rect[3])
 
         canvas_proc(id_canvas, CANVAS_SET_BRUSH, color=back_color, style=BRUSH_SOLID)
+        canvas_proc(id_canvas, CANVAS_SET_FONT, color=font_color)
         size = canvas_proc(id_canvas, CANVAS_GET_TEXT_SIZE, text=item_text)
         canvas_proc(id_canvas, CANVAS_TEXT,
             text = item_text,
