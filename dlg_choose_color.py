@@ -28,13 +28,11 @@ class DialogChooseColor:
                 self.THEME_FONT_SEL = i['color']
 
 
-    def callback_keydown(self, id_dlg, id_ctl, data='', info=''):
+    def callback_btn_ok(self, id_dlg, id_ctl, data='', info=''):
 
-        #react to Enter
-        if id_ctl==13:
-            index_sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
-            self.result = self.items[index_sel]
-            dlg_proc(self.h_dlg, DLG_HIDE)
+        index_sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
+        self.result = self.items[index_sel]
+        dlg_proc(self.h_dlg, DLG_HIDE)
 
 
     def callback_listbox_drawitem(self, id_dlg, id_ctl, data='', info=''):
@@ -71,7 +69,6 @@ class DialogChooseColor:
         dlg_proc(h, DLG_PROP_SET, prop={'cap':'Recent colors',
           'w':CHOOSE_FORM_W,
           'h':CHOOSE_FORM_H,
-          'on_key_down': self.callback_keydown,
           'keypreview': True
           })
 
@@ -84,8 +81,16 @@ class DialogChooseColor:
 
         self.h_list = dlg_proc(h, DLG_CTL_HANDLE, index=n)
         dlg_proc(h, DLG_CTL_FOCUS, index=n)
-
         listbox_proc(self.h_list, LISTBOX_SET_DRAWN, index=1)
+
+        n=dlg_proc(h, DLG_CTL_ADD, 'button')
+        dlg_proc(h, DLG_CTL_PROP_SET, index=n, prop={'name': 'btn_ok',
+            'cap': 'OK',
+            'align': ALIGN_BOTTOM,
+            'sp_a': 6,
+            'on_change': self.callback_btn_ok,
+            'ex0': True,
+            })
 
         return h
 
