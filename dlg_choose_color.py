@@ -16,6 +16,8 @@ class DialogChooseColor:
         listbox_proc(self.h_list, LISTBOX_SET_ITEM_H, index=self.icon_h+2)
         self.items = []
 
+    def init_theme(self):
+
         for i in app_proc(PROC_THEME_UI_DATA_GET, ''):
             key = i['name']
             if key=='ListBg':
@@ -26,7 +28,6 @@ class DialogChooseColor:
                 self.THEME_FONT = i['color']
             elif key=='ListSelFont':
                 self.THEME_FONT_SEL = i['color']
-
 
     def callback_btn_ok(self, id_dlg, id_ctl, data='', info=''):
 
@@ -94,8 +95,9 @@ class DialogChooseColor:
         return h
 
 
-    def choose_color(self, items):
+    def dialog(self, items):
 
+        self.init_theme()
         self.result = ''
         self.items = items
 

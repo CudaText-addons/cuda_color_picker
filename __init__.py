@@ -25,6 +25,7 @@ def get_word_info():
 
 class Command:
     items = []
+    dlg_recent = None
 
     def load_history(self):
 
@@ -81,7 +82,8 @@ class Command:
     def recent_colors(self):
 
         self.load_history()
-        dlg = DialogChooseColor()
-        res = dlg.choose_color(self.items)
+        if self.dlg_recent is None:
+            self.dlg_recent = DialogChooseColor()
+        res = self.dlg_recent.dialog(self.items)
         if res:
             self.insert(res)
