@@ -31,8 +31,9 @@ class DialogChooseColor:
 
     def callback_btn_ok(self, id_dlg, id_ctl, data='', info=''):
 
-        index_sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
-        self.result = self.items[index_sel]
+        sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
+        cnt = listbox_proc(self.h_list, LISTBOX_GET_COUNT)
+        self.result = self.items[sel] if 0<=sel<cnt else None
         dlg_proc(self.h_dlg, DLG_HIDE)
 
 

@@ -38,6 +38,11 @@ class Command:
         s = ','.join(self.items[:MAX_COLORS])
         ini_write(fn_config, 'color_picker', 'recents', s)
 
+    def clear_history(self):
+
+        self.items = []
+        self.save_history()
+
     def add_history(self, item):
 
         if item in self.items:
@@ -87,3 +92,9 @@ class Command:
         res = self.dlg_recent.dialog(self.items)
         if res:
             self.insert(res)
+
+
+    def recent_clear(self):
+
+        self.clear_history()
+

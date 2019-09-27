@@ -14,3 +14,8 @@ method=run
 section=commands
 caption=Color Picker\Recent colors...
 method=recent_colors
+
+[item3]
+section=commands
+caption=Color Picker\Clear recent list
+method=recent_clear

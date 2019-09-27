@@ -1,4 +1,8 @@
 
+2019.09.27
++ add: menu item "Clear recent list"
+- fix: crash on OK in empty recent list
+
 2019.06.01
 + code is rewritten
 + added command "Recent colors" which shows listbox with recent items (max count saved to history, plugins.ini: 30)
