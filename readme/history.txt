@@ -1,4 +1,7 @@
 
+2019.11.12
+- avoid deprecated API
+
 2019.09.27
 + add: menu item "Clear recent list"
 - fix: crash on OK in empty recent list

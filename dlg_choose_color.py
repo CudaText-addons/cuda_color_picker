@@ -18,16 +18,11 @@ class DialogChooseColor:
 
     def init_theme(self):
 
-        for i in app_proc(PROC_THEME_UI_DATA_GET, ''):
-            key = i['name']
-            if key=='ListBg':
-                self.THEME_BG = i['color']
-            elif key=='ListSelBg':
-                self.THEME_BG_SEL = i['color']
-            elif key=='ListFont':
-                self.THEME_FONT = i['color']
-            elif key=='ListSelFont':
-                self.THEME_FONT_SEL = i['color']
+        th = app_proc(PROC_THEME_UI_DICT_GET, '')
+        self.THEME_BG = th['ListBg']['color']
+        self.THEME_BG_SEL = th['ListSelBg']['color']
+        self.THEME_FONT = th['ListFont']['color']
+        self.THEME_FONT_SEL = th['ListSelFont']['color']
 
     def callback_btn_ok(self, id_dlg, id_ctl, data='', info=''):
 
