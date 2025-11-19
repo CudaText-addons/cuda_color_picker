@@ -1,6 +1,8 @@
+2025.11.20
+- fix: avoid deprecated API
 
 2019.11.12
-- avoid deprecated API
+- fix: avoid deprecated API
 
 2019.09.27
 + add: menu item "Clear recent list"

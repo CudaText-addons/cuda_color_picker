@@ -38,7 +38,7 @@ class DialogChooseColor:
         index = data['index']
         rect = data['rect']
         index_sel = listbox_proc(self.h_list, LISTBOX_GET_SEL)
-        item_text = listbox_proc(self.h_list, LISTBOX_GET_ITEM, index=index)[0]
+        item_text = listbox_proc(self.h_list, LISTBOX_GET_ITEM_PROP, index=index)['text']
 
         back_color = self.THEME_BG_SEL if index==index_sel else self.THEME_BG
         font_color = self.THEME_FONT_SEL if index==index_sel else self.THEME_FONT
